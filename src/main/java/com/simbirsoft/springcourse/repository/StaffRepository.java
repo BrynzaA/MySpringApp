@@ -1,0 +1,7 @@
+package com.simbirsoft.springcourse.repository;
+
+import com.simbirsoft.springcourse.model.Staff;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StaffRepository extends JpaRepository<Staff, Long> {
+}
