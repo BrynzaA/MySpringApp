@@ -6,7 +6,7 @@ import com.simbirsoft.springcourse.model.Employee;
 public interface EmployeeService {
 
     Employee getById(Long id);
-    void save(EmployeeDto employeeDto);
+    Employee save(EmployeeDto employeeDto);
     void delete(Long id);
 
 }

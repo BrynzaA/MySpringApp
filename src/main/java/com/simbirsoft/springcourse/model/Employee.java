@@ -15,13 +15,13 @@ public class Employee {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "surName")
-    private String surName;
+    @Column(name = "surname")
+    private String surname;
 
-    @Column(name = "dateOfBirth")
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Column(name = "dateOfEmployment")
+    @Column(name = "date_of_employment")
     private LocalDate dateOfEmployment;
 
     public Long getId() {
@@ -41,11 +41,11 @@ public class Employee {
     }
 
     public String getSurName() {
-        return surName;
+        return surname;
     }
 
     public void setSurName(String surName) {
-        this.surName = surName;
+        this.surname = surName;
     }
 
     public LocalDate getDateOfBirth() {
