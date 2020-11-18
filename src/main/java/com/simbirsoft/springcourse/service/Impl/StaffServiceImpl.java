@@ -5,7 +5,8 @@ import com.simbirsoft.springcourse.model.Staff;
 import com.simbirsoft.springcourse.repository.StaffRepository;
 import com.simbirsoft.springcourse.service.EmployeeService;
 import com.simbirsoft.springcourse.service.StaffService;
-import com.simbirsoft.springcourse.service.ValidationUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import static org.springframework.util.StringUtils.isEmpty;
@@ -22,30 +23,32 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public Staff getById(Long id) {
-        ValidationUtils.idIsNotNull(id);
+    public ResponseEntity<Staff> getById(Long id) {
+        if (isEmpty(id)){
+            return ResponseEntity.badRequest().build();
+        }
         Staff staff = staffRepository.findById(id).orElse(null);
         if (isEmpty(staff)){
-            throw new NullPointerException("Staff not found");
+            return ResponseEntity.notFound().build();
         }
-        return staff;
+        return ResponseEntity.ok(staff);
     }
 
     @Override
-    public Staff save(StaffDto staffDto) {
+    public ResponseEntity<String> save(StaffDto staffDto) {
         if (isEmpty(staffDto)){
-            throw new NullPointerException("Employee should be not null");
+            return ResponseEntity.badRequest().build();
         }
         Staff staff = new Staff();
-        staff.setEmployee(employeeService.getById(staffDto.getEmployeeId()));
+        staff.setEmployee(employeeService.findById(staffDto.getEmployeeId()));
         staff.setPosition(staffDto.getPosition());
         staff.setSalary(staffDto.getSalary());
 
-        return staffRepository.save(staff);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Override
     public void delete(Long id) {
-        staffRepository.delete(getById(id));
+        staffRepository.deleteById(id);
     }
 }

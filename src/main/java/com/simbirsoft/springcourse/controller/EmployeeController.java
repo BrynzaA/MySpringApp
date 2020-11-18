@@ -3,7 +3,6 @@ package com.simbirsoft.springcourse.controller;
 import com.simbirsoft.springcourse.dto.EmployeeDto;
 import com.simbirsoft.springcourse.model.Employee;
 import com.simbirsoft.springcourse.service.EmployeeService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,16 +18,17 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Employee> findById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(employeeService.getById(id));
+        return employeeService.getById(id);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Employee> addEmployee(@RequestBody EmployeeDto employeeDto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.save(employeeDto));
+    public ResponseEntity<String> addEmployee(@RequestBody EmployeeDto employeeDto){
+        return employeeService.save(employeeDto);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public ResponseEntity<String> delete(@PathVariable Long id){
         employeeService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

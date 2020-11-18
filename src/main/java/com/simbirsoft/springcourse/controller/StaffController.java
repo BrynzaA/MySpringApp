@@ -1,5 +1,6 @@
 package com.simbirsoft.springcourse.controller;
 
+import com.simbirsoft.springcourse.dto.StaffDto;
 import com.simbirsoft.springcourse.model.Staff;
 import com.simbirsoft.springcourse.service.StaffService;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +18,17 @@ public class StaffController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Staff> findById(@PathVariable("id") Long id){
-        return ResponseEntity.ok(staffService.getById(id));
+        return staffService.getById(id);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<String> addStaff(@RequestBody StaffDto staffDto){
+        return staffService.save(staffDto);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public ResponseEntity<String> delete(@PathVariable Long id){
         staffService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

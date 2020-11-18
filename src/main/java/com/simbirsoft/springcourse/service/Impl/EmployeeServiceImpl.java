@@ -4,7 +4,8 @@ import com.simbirsoft.springcourse.dto.EmployeeDto;
 import com.simbirsoft.springcourse.model.Employee;
 import com.simbirsoft.springcourse.repository.EmployeeRepository;
 import com.simbirsoft.springcourse.service.EmployeeService;
-import com.simbirsoft.springcourse.service.ValidationUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import static org.springframework.util.StringUtils.isEmpty;
@@ -19,19 +20,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getById(Long id) {
-        ValidationUtils.idIsNotNull(id);
+    public ResponseEntity<Employee> getById(Long id) {
+        if (isEmpty(id)){
+            return ResponseEntity.badRequest().build();
+        }
         Employee employee = employeeRepository.findById(id).orElse(null);
         if (isEmpty(employee)){
-            throw new NullPointerException("Employee not found");
+            return ResponseEntity.notFound().build();
         }
-        return employee;
+        return ResponseEntity.ok(employee);
     }
 
     @Override
-    public Employee save(EmployeeDto employeeDto) {
+    public ResponseEntity<String> save(EmployeeDto employeeDto) {
         if (isEmpty(employeeDto)){
-            throw new NullPointerException("Employee should be not null");
+            return ResponseEntity.badRequest().build();
         }
         Employee employee = new Employee();
         employee.setName(employeeDto.getName());
@@ -39,11 +42,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setDateOfBirth(employeeDto.getDateOfBirth());
         employee.setDateOfEmployment(employeeDto.getDateOfEmployment());
 
-        return employeeRepository.save(employee);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @Override
+    public Employee findById(Long id) {
+        return employeeRepository.findById(id).orElse(null);
     }
 
     @Override
     public void delete(Long id) {
-        employeeRepository.delete(getById(id));
+        employeeRepository.deleteById(id);
     }
 }
