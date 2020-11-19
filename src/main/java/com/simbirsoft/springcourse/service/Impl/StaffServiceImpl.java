@@ -1,12 +1,12 @@
 package com.simbirsoft.springcourse.service.Impl;
 
 import com.simbirsoft.springcourse.dto.StaffDto;
+import com.simbirsoft.springcourse.exception.ResourceNotFoundException;
+import com.simbirsoft.springcourse.exception.ValidationException;
 import com.simbirsoft.springcourse.model.Staff;
 import com.simbirsoft.springcourse.repository.StaffRepository;
 import com.simbirsoft.springcourse.service.EmployeeService;
 import com.simbirsoft.springcourse.service.StaffService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import static org.springframework.util.StringUtils.isEmpty;
@@ -23,32 +23,32 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public ResponseEntity<Staff> getById(Long id) {
-        if (isEmpty(id)){
-            return ResponseEntity.badRequest().build();
+    public Staff getById(Long id) {
+        if (isEmpty(id)) {
+            throw new ValidationException("Id should be valid");
         }
         Staff staff = staffRepository.findById(id).orElse(null);
-        if (isEmpty(staff)){
-            return ResponseEntity.notFound().build();
+        if (isEmpty(staff)) {
+            throw new ResourceNotFoundException("Staff not found");
         }
-        return ResponseEntity.ok(staff);
+        return staff;
     }
 
     @Override
-    public ResponseEntity<String> save(StaffDto staffDto) {
-        if (isEmpty(staffDto)){
-            return ResponseEntity.badRequest().build();
+    public void save(StaffDto staffDto) {
+        if (isEmpty(staffDto)) {
+            throw new ResourceNotFoundException("Staff should be not null");
         }
         Staff staff = new Staff();
-        staff.setEmployee(employeeService.findById(staffDto.getEmployeeId()));
+        staff.setEmployee(employeeService.getById(staffDto.getEmployeeId()));
         staff.setPosition(staffDto.getPosition());
         staff.setSalary(staffDto.getSalary());
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        staffRepository.save(staff);
     }
 
     @Override
     public void delete(Long id) {
-        staffRepository.deleteById(id);
+        staffRepository.delete(getById(id));
     }
 }

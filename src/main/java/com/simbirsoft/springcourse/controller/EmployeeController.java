@@ -3,6 +3,7 @@ package com.simbirsoft.springcourse.controller;
 import com.simbirsoft.springcourse.dto.EmployeeDto;
 import com.simbirsoft.springcourse.model.Employee;
 import com.simbirsoft.springcourse.service.EmployeeService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +17,16 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Employee> findById(@PathVariable("id") Long id) {
-        return employeeService.getById(id);
+        return ResponseEntity.ok(employeeService.getById(id));
     }
 
     @PostMapping("/create")
     public ResponseEntity<String> addEmployee(@RequestBody EmployeeDto employeeDto){
-        return employeeService.save(employeeDto);
+        employeeService.save(employeeDto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{id}")
