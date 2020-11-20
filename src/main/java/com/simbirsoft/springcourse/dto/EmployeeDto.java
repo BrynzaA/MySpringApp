@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class EmployeeDto {
 
     private String name;
-    private String surName;
+    private String surname;
     private LocalDate dateOfBirth;
     private LocalDate dateOfEmployment;
 
@@ -17,12 +17,12 @@ public class EmployeeDto {
         this.name = name;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
+    public void setSurname(String surName) {
+        this.surname = surName;
     }
 
     public LocalDate getDateOfBirth() {
