@@ -18,20 +18,20 @@ public class StaffController {
         this.staffService = staffService;
     }
 
-    @PreAuthorize("hasAuthority(AuthorityType.ROLE_USER.name())")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER','ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Staff> findById(@PathVariable("id") Long id){
         return ResponseEntity.ok(staffService.getById(id));
     }
 
-    @PreAuthorize("hasAuthority(AuthorityType.ROLE_ADMIN.name())")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<String> addStaff(@RequestBody StaffDto staffDto){
         staffService.save(staffDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PreAuthorize("hasAuthority(AuthorityType.ROLE_ADMIN.name())")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
         staffService.delete(id);
