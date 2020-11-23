@@ -1,5 +1,6 @@
 package com.simbirsoft.springcourse.dto;
 
+import com.simbirsoft.springcourse.model.Authority;
 import com.simbirsoft.springcourse.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,7 +15,9 @@ public class UserDetailsDto implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getName().toString())).collect(Collectors.toList());
+        return user.getAuthorities().stream().flatMap(authority -> authority.getPermissions().stream())
+                .map(permission -> new SimpleGrantedAuthority(permission.getName().toString()))
+                .collect(Collectors.toSet());
     }
 
     @Override

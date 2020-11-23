@@ -19,20 +19,20 @@ public class EmployeeController {
     }
 
 
-    @PreAuthorize("hasAnyAuthority('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('EMPLOYEE_READ')")
     @GetMapping("/{id}")
     public ResponseEntity<Employee> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(employeeService.getById(id));
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('EMPLOYEE_EDIT')")
     @PostMapping("/create")
     public ResponseEntity<String> addEmployee(@RequestBody EmployeeDto employeeDto){
         employeeService.save(employeeDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('EMPLOYEE_EDIT')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
         employeeService.delete(id);
