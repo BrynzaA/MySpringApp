@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "user_details")
+@Table(name = "users")
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +22,8 @@ public class User implements Serializable {
     private String password;
 
     @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable (name = "user_authority",
-            joinColumns = {@JoinColumn(name = "user_id")},
+    @JoinTable (name = "users_authority",
+            joinColumns = {@JoinColumn(name = "users_id")},
             inverseJoinColumns = { @JoinColumn(name = "authority_id")})
     private Set<Authority> authorities = new HashSet<>();
 
