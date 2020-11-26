@@ -5,6 +5,7 @@ import com.simbirsoft.springcourse.model.Staff;
 import com.simbirsoft.springcourse.service.StaffService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,17 +18,20 @@ public class StaffController {
         this.staffService = staffService;
     }
 
+    @PreAuthorize("hasAuthority('STAFF_READ')")
     @GetMapping("/{id}")
     public ResponseEntity<Staff> findById(@PathVariable("id") Long id){
         return ResponseEntity.ok(staffService.getById(id));
     }
 
+    @PreAuthorize("hasAuthority('STAFF_EDIT')")
     @PostMapping("/create")
     public ResponseEntity<String> addStaff(@RequestBody StaffDto staffDto){
         staffService.save(staffDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PreAuthorize("hasAuthority('STAFF_EDIT')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
         staffService.delete(id);
