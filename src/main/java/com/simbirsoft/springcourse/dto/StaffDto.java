@@ -1,32 +1,15 @@
 package com.simbirsoft.springcourse.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+@Data
 public class StaffDto {
 
+    @ApiModelProperty(notes = "The unique id of employee")
     private Long employeeId;
+    @ApiModelProperty(notes = "The staff's position")
     private String position;
+    @ApiModelProperty(notes = "The staff's salary")
     private Float salary;
-
-    public Long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public Float getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Float salary) {
-        this.salary = salary;
-    }
 }

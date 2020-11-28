@@ -1,66 +1,36 @@
 package com.simbirsoft.springcourse.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Data
 @Table(name = "employee")
+@ApiModel(description = "Details about employee")
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @ApiModelProperty(notes = "The unique id of an employee")
     private Long id;
 
     @Column(name = "name")
+    @ApiModelProperty(notes = "The employee's name")
     private String name;
 
     @Column(name = "surname")
+    @ApiModelProperty(notes = "The employee's surname")
     private String surname;
 
     @Column(name = "date_of_birth")
+    @ApiModelProperty(notes = "The employee's date of birth")
     private LocalDate dateOfBirth;
 
     @Column(name = "date_of_employment")
+    @ApiModelProperty(notes = "The employee's date of employment")
     private LocalDate dateOfEmployment;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurName() {
-        return surname;
-    }
-
-    public void setSurName(String surName) {
-        this.surname = surName;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public LocalDate getDateOfEmployment() {
-        return dateOfEmployment;
-    }
-
-    public void setDateOfEmployment(LocalDate dateOfEmployment) {
-        this.dateOfEmployment = dateOfEmployment;
-    }
 }

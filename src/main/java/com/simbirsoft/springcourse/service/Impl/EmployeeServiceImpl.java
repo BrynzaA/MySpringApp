@@ -3,21 +3,22 @@ package com.simbirsoft.springcourse.service.Impl;
 import com.simbirsoft.springcourse.dto.EmployeeDto;
 import com.simbirsoft.springcourse.exception.ResourceNotFoundException;
 import com.simbirsoft.springcourse.exception.ValidationException;
+import com.simbirsoft.springcourse.mapper.EmployeeMapper;
 import com.simbirsoft.springcourse.model.Employee;
 import com.simbirsoft.springcourse.repository.EmployeeRepository;
 import com.simbirsoft.springcourse.service.EmployeeService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import static org.springframework.util.StringUtils.isEmpty;
 
 @Service
+@AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final EmployeeMapper employeeMapper;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
 
     @Override
     public Employee getById(Long id) {
@@ -36,13 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (isEmpty(employeeDto)) {
             throw new ResourceNotFoundException("Employee should be not null");
         }
-        Employee employee = new Employee();
-        employee.setName(employeeDto.getName());
-        employee.setSurName(employeeDto.getSurname());
-        employee.setDateOfBirth(employeeDto.getDateOfBirth());
-        employee.setDateOfEmployment(employeeDto.getDateOfEmployment());
-
-        employeeRepository.save(employee);
+        employeeRepository.save(employeeMapper.toEmployee(employeeDto));
     }
 
     @Override

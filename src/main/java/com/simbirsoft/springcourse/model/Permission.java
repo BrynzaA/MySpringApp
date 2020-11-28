@@ -1,8 +1,11 @@
 package com.simbirsoft.springcourse.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "permission")
 public class Permission {
     @Id
@@ -13,25 +16,5 @@ public class Permission {
     private PermissionType name;
 
     public Permission() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Permission(PermissionType name){
-        this.name = name;
-    }
-
-    public PermissionType getName() {
-        return name;
-    }
-
-    public void setName(PermissionType name) {
-        this.name = name;
     }
 }
