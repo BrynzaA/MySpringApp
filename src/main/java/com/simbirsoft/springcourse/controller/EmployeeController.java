@@ -44,8 +44,10 @@ public class EmployeeController {
             notes = "Provide name, surname, date of birth and a date of employment of a new worker",
             response = Contact.class)
     @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", responseContainer="List"),
             @ApiResponse(code = 401, message = "Unauthorized"),
             @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not found", response = ResourceNotFoundException.class)
     })
     public ResponseEntity<String> addEmployee(@ApiParam( value = "Name, surname, date of birth and a date of employment",
             required = true)
@@ -60,6 +62,9 @@ public class EmployeeController {
             notes = "Provide an id to delete specific employee from database",
             response = Contact.class)
     @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", responseContainer="List"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not found", response = ResourceNotFoundException.class)
     })
     public ResponseEntity<String> delete(@ApiParam( value = "ID value for the employee you need delete" ,

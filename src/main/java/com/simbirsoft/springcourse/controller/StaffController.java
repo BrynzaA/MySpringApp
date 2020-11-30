@@ -24,8 +24,10 @@ public class StaffController {
             notes = "Provide an id to look up specific staff in database",
             response = Contact.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = String.class),
-            @ApiResponse(code = 404, message = "Not found", responseContainer = "Staff not found")
+            @ApiResponse(code = 200, message = "OK", responseContainer="List"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not found", response = ResourceNotFoundException.class)
     })
     public ResponseEntity<Staff> findById(@ApiParam( value = "ID value for the staff you need to find" ,
             required = true)
@@ -39,6 +41,9 @@ public class StaffController {
             notes = "Provide an id of existing employee, salary and position of a new staff",
             response = Contact.class)
     @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", responseContainer="List"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not found", response = ResourceNotFoundException.class)
     })
     public ResponseEntity<String> addStaff(@ApiParam( value = "Id of existing employee, salary and position",
@@ -54,6 +59,9 @@ public class StaffController {
             notes = "Provide an id to delete specific staff from database",
             response = Contact.class)
     @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", responseContainer="List"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "Not found", response = ResourceNotFoundException.class)
     })
     public ResponseEntity<String> delete(@ApiParam( value = "ID value for the staff you need delete" , required = true)
