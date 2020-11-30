@@ -1,6 +1,5 @@
 package com.simbirsoft.springcourse.dto;
 
-import com.simbirsoft.springcourse.model.Authority;
 import com.simbirsoft.springcourse.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

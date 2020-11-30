@@ -1,10 +1,13 @@
 package com.simbirsoft.springcourse.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Data
 @Table(name = "authority")
 public class Authority {
     @Id
@@ -21,33 +24,5 @@ public class Authority {
     private Set<Permission> permissions = new HashSet<>();
 
     public Authority() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Authority(AuthorityType name){
-        this.name = name;
-    }
-
-    public AuthorityType getName() {
-        return name;
-    }
-
-    public void setName(AuthorityType name) {
-        this.name = name;
-    }
-
-    public Set<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Set<Permission> permissions) {
-        this.permissions = permissions;
     }
 }

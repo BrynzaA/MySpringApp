@@ -1,43 +1,19 @@
 package com.simbirsoft.springcourse.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 import java.time.LocalDate;
 
+@Data
 public class EmployeeDto {
 
+    @ApiModelProperty(notes = "The employee's name")
     private String name;
+    @ApiModelProperty(notes = "The employee's surname")
     private String surname;
+    @ApiModelProperty(notes = "The employee's date of birth")
     private LocalDate dateOfBirth;
+    @ApiModelProperty(notes = "The employee's date of employment")
     private LocalDate dateOfEmployment;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surName) {
-        this.surname = surName;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public LocalDate getDateOfEmployment() {
-        return dateOfEmployment;
-    }
-
-    public void setDateOfEmployment(LocalDate dateOfEmployment) {
-        this.dateOfEmployment = dateOfEmployment;
-    }
 }
