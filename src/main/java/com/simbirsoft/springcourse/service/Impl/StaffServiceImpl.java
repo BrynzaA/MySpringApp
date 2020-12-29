@@ -5,6 +5,7 @@ import com.simbirsoft.springcourse.exception.ResourceNotFoundException;
 import com.simbirsoft.springcourse.exception.ValidationException;
 import com.simbirsoft.springcourse.mapper.StaffMapper;
 import com.simbirsoft.springcourse.model.Staff;
+import com.simbirsoft.springcourse.repository.EmployeeRepository;
 import com.simbirsoft.springcourse.repository.StaffRepository;
 import com.simbirsoft.springcourse.service.EmployeeService;
 import com.simbirsoft.springcourse.service.StaffService;
@@ -18,6 +19,7 @@ import static org.springframework.util.StringUtils.isEmpty;
 public class StaffServiceImpl implements StaffService {
 
     private final StaffRepository staffRepository;
+    private final EmployeeRepository employeeRepository;
     private final EmployeeService employeeService;
     private final StaffMapper staffMapper;
 
@@ -47,6 +49,8 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public void delete(Long id) {
+        Staff staff = staffRepository.getOne(id);
+        staff.setEmployee(null);
         staffRepository.delete(getById(id));
     }
 }
