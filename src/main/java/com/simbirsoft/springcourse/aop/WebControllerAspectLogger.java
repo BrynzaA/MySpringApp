@@ -1,7 +1,6 @@
 package com.simbirsoft.springcourse.aop;
 
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
-@Slf4j
 @Aspect
 @Component
 public class WebControllerAspectLogger {
